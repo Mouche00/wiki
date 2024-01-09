@@ -2,22 +2,53 @@
 
 class User {
 
-    private $db;
+    private $fullname;
+    private $username;
+    private $picture;
+    private $email;
+    private $password;
 
-    public function __construct(){
-        $this->db = Database::getInstance();
+    public function __construct()
+    {
     }
 
-    public function insert($fname, $lname, $image, $email, $password){
+    public function getFullname(){
+		return $this->fullname;
+	}
 
-        $sql = "INSERT INTO users (fname, lname, image, email, password, role) VALUES (:fname, :lname, :image, :email, :password, 'author')";
-        $this->db->query($sql);
-        $this->db->bind(":fname", $fname);
-        $this->db->bind(":lname", $lname);
-        $this->db->bind(":image", $image);
-        $this->db->bind(":email", $email);
-        $this->db->bind(":password", $password);
-        $this->db->execute();
+	public function setFullname($fullname){
+		$this->fullname = $fullname;
+	}
 
-    }
+	public function getUsername(){
+		return $this->username;
+	}
+
+	public function setUsername($username){
+		$this->username = $username;
+	}
+
+	public function getPicture(){
+		return $this->picture;
+	}
+
+	public function setPicture($picture){
+		$this->picture = $picture;
+	}
+
+	public function getEmail(){
+		return $this->email;
+	}
+
+	public function setEmail($email){
+		$this->email = $email;
+	}
+
+	public function getPassword(){
+		return $this->password;
+	}
+
+	public function setPassword($password){
+		$this->password = $password;
+	}
 }
