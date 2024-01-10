@@ -3,12 +3,12 @@ $(document).ready(function(){
     function validateFields(input) {
 
         const field = document.querySelector(`#${input}`);
-        let check = false;
+        let errorCheck = false;
 
         if (field.value.trim() == "") {
 
             setStatus(field, `${field.previousElementSibling.innerText} cannot be blank`, "error");
-            check = true;
+            errorCheck = true;
 
         } else {
 
@@ -24,7 +24,7 @@ $(document).ready(function(){
                 setStatus(field, null, "success");
             } else {
                 setStatus(field, 'Please enter a valid email address', "error");
-                check = true;
+                errorCheck = true;
             }
         }
 
@@ -36,7 +36,7 @@ $(document).ready(function(){
                 setStatus(field, null, "success");
             } else {
                 setStatus(field, 'Please enter a valid password', "error");
-                check = true;
+                errorCheck = true;
             }
 
         }
@@ -49,7 +49,7 @@ $(document).ready(function(){
                 setStatus(field, null, "success");
             } else {
                 setStatus(field, 'Please enter a valid name', "error");
-                check = true;
+                errorCheck = true;
             }
 
         }
@@ -60,13 +60,13 @@ $(document).ready(function(){
             
             if(field.value != confirmField.value) {
                 setStatus(field, "Password does not match", "error");
-                check = true;
+                errorCheck = true;
             } else {
                 setStatus(field, null, "success");
             }
         }
 
-        return check;
+        return errorCheck;
 
     }
 
@@ -111,16 +111,16 @@ $(document).ready(function(){
         event.preventDefault();
         let formData = new FormData(this);
 
-        let errorCheck = false;
-        for(const[key, value] of formData) {
-            if(key != "picture"){
-                if(validateFields(key)){
-                    errorCheck = true;
-                }
-            }
-        }
+        // let errorCheck = false;
+        // for(const[key, value] of formData) {
+        //     if(key != "picture"){
+        //         if(validateFields(key)){
+        //             errorCheck = true;
+        //         }
+        //     }
+        // }
 
-        if(errorCheck == 0){
+        // if(!errorCheck){
             $.ajax({
                 url: $(this).attr('action'),
                 type: 'POST',
@@ -132,8 +132,8 @@ $(document).ready(function(){
                     let data = JSON.parse(response);
                 }
     
-            })
-        }
+            });
+        // }
 
     });
 
