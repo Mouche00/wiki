@@ -42,9 +42,13 @@ class UserService implements UserServiceInterface {
 
     public function fetchByEmail($email){
 
-        $this->db->query('SELECT * FROM users WHERE email = :email');
+        $this->db->query('SELECT *, roles.name as role_name FROM users 
+        JOIN rolesOfUser ON users.id = rolesOfUser.users_id 
+        JOIN roles ON rolesOfUser.roles_id = roles.name 
+        WHERE email = :email');
         $this->db->bind(":email", $email);
         return $this->db->single();
 
     }
+    
 }

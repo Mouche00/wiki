@@ -111,16 +111,16 @@ $(document).ready(function(){
         event.preventDefault();
         let formData = new FormData(this);
 
-        // let errorCheck = false;
-        // for(const[key, value] of formData) {
-        //     if(key != "picture"){
-        //         if(validateFields(key)){
-        //             errorCheck = true;
-        //         }
-        //     }
-        // }
+        let errorCheck = false;
+        for(const[key, value] of formData) {
+            if(key != "picture"){
+                if(validateFields(key)){
+                    errorCheck = true;
+                }
+            }
+        }
 
-        // if(!errorCheck){
+        if(!errorCheck){
             $.ajax({
                 url: $(this).attr('action'),
                 type: 'POST',
@@ -133,8 +133,73 @@ $(document).ready(function(){
                 }
     
             });
-        // }
+        }
 
+    });
+
+
+
+
+    // admin
+
+
+    function draw(){
+
+        let url = window.location.href.split("/");
+        let pageName = url[url.length - 1];
+
+        $.ajax({
+            url: URLROOT + '/' + pageName + '/display',
+            type: "GET",
+            success: function (response) {
+              console.log(response);
+              let data = JSON.parse(response);
+              $("#tbody").html("");
+              let row = "";
+              let element = "";
+              data.forEach((element) => {
+                row = $("<tr>", { class: "bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600" });
+                for (const [key, value] of Object.entries(element)) {
+                
+                    element = `<td class="px-6 py-4 border-black border-2 rounded-sm">
+                                    ${value}
+                                </td>`;
+                    row.append(element);
+        
+                }
+                element = $("<td>", {
+                  class:
+                    "px-6 py-4 border-black border-2 rounded-sm",
+                });
+                button = $("<button>", { class: "delete-button", type: "button" });
+                button.attr("data-id", `${element.id}`);
+                value = `DELETE`;
+                button.html(value);
+                element.append(button);
+
+                button = $("<button>", { class: "edit-button", type: "button" });
+                button.attr("data-id", `${element.id}`);
+                value = `EDIT`;
+                button.html(value);
+                element.append(button);
+      
+                row.append(element);
+                $("tbody").append(row);
+              });
+            },
+          });
+    }
+
+    draw();
+
+    $(document).on('click', '#show-form', function(){
+        $('#overlay').removeClass('hidden');
+        $('#form-wrapper').removeClass('hidden');
+    });
+
+    $(document).on('click', '#close-form', function(){
+        $('#overlay').addClass('hidden');
+        $('#form-wrapper').addClass('hidden');
     });
 
 });

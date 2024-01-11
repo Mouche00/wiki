@@ -60,7 +60,7 @@
     </div>
 
     <!-- Login banner -->
-    <div class="bg-[url('<?= URLROOT . "/images/login.jpg"?>')] bg-cover bg-right md:w-[50%] flex flex-wrap content-center justify-center rounded-r-md md:flex hidden">
+    <div class="bg-[url('<?= URLROOT . "/images/signup.jpg"?>')] bg-cover bg-right md:w-[50%] flex flex-wrap content-center justify-center rounded-r-md md:flex hidden">
     </div>
 
   </div>

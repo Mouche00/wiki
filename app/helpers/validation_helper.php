@@ -1,6 +1,6 @@
 <?php
 
-function validateInputs($array){
+function validateInputs($array, $loginFlag = false){
 
     $data = [];
     $errors = [];
@@ -18,9 +18,16 @@ function validateInputs($array){
         }
 
         if($key == "password") {
-            $password_regex = "/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/"; 
-            if (!preg_match($password_regex, $data['password'])) {
-                $errors['password_err'] = 'Password is invalid';
+            if(!$loginFlag){
+                $password_regex = "/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/"; 
+                if (!preg_match($password_regex, $data['password'])) {
+                    $errors['password_err'] = 'Password is invalid';
+                }
+            } else if($loginFlag) {
+                $user = $service->fetchByEmail($data['email']);
+                if (!password_verify($data['password'], $user->password)) {
+                    $errors['password_err'] = 'Password is incorrect';
+                }
             }
         } else if ($key == "confirm-password") {
 
@@ -28,10 +35,16 @@ function validateInputs($array){
                 $errors['confirm-password_err'] = "Passwords do not match";
             }
 
-        } else if ($key == "email" && !$data['login']) {
-
+        } else if ($key == "email") {
+            
             if ($service->fetchByEmail($data['email'])) {
-                $errors['email_err'] = 'Email is already taken';
+                if(!$loginFlag){
+                    $errors['email_err'] = 'Email is already taken';
+                }
+            } else {
+                if($loginFlag){
+                    $errors['email_err'] = 'User not found';
+                }
             }
         }
     }
@@ -48,6 +61,45 @@ function validateInputs($array){
 
     return $data;
             
+}
+
+function validatePicture($array) {
+
+    $errors = [];
+    $data = [];
+
+    $valid_extensions = array('jpeg', 'jpg', 'png');
+    $path = APPROOT . "/../public/uploads/";
+
+    $img = $array['picture']['name'];
+    $tmp = $array['picture']['tmp_name'];
+
+    $ext = strtolower(pathinfo($img, PATHINFO_EXTENSION));
+
+    $picture = rand(1000,1000000).$img;
+
+    $data = array_merge($data, ['picture' => $picture]);
+
+    if(in_array($ext, $valid_extensions)) { 
+        $path = $path.strtolower($picture); 
+        if(!move_uploaded_file($tmp,$path)) {
+            $errors['picture_err'] = 'Picture upload unsuccessful';
+        }
+    } else {
+        $errors['picture_err'] = 'Unsupported extension';
+    }
+
+    $data = array_merge($data, $errors);
+
+    if (errorChecking($errors)){
+
+        $data = array_merge($data, array('errorCheck' => true));
+    } else {
+
+        $data = array_merge($data, array('errorCheck' => false));
+    }
+
+    return $data;
 }
 
 function errorChecking($array){

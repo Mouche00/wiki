@@ -20,6 +20,8 @@ class Core
         if (file_exists("../app/controllers/$controller.php")) {
             $this->currentController = $controller;
             unset($url[0]);
+        } else {
+            $url[1] = $url[0];
         }
 
         require_once "../app/controllers/{$this->currentController}.php";
