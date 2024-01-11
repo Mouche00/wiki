@@ -1,6 +1,6 @@
 <?php
 
-class CategoryService implements CategoryServiceInterface {
+class TagService implements TagServiceInterface {
 
     private $db;
 
@@ -10,35 +10,31 @@ class CategoryService implements CategoryServiceInterface {
 
     public function read(){
 
-        $sql = "SELECT * FROM categories";
+        $sql = "SELECT * FROM tags";
         $this->db->query($sql);
         return $this->db->resultSet();
 
     }
 
-    public function insert(Category $category){
+    public function insert(Tag $tag){
 
-        $name = $category->getName();
-        $description = $category->getDescription();
+        $name = $tag->getName();
 
-        $sql = "INSERT INTO categories (name, description) VALUES (:name, :description)";
+        $sql = "INSERT INTO tags (name) VALUES (:name)";
         $this->db->query($sql);
         $this->db->bind(":name", $name);
-        $this->db->bind(":description", $description);
         $this->db->execute();
 
     }
 
-    public function edit(Category $category){
+    public function edit(Tag $tag){
 
-        $id = $category->getId();
-        $name = $category->getName();
-        $description = $category->getDescription();
+        $id = $tag->getId();
+        $name = $tag->getName();
 
-        $sql = "UPDATE categories SET name = :name, description = :description WHERE id = :id";
+        $sql = "UPDATE tags SET name = :name WHERE id = :id";
         $this->db->query($sql);
         $this->db->bind(":name", $name);
-        $this->db->bind(":description", $description);
         $this->db->bind(":id", $id);
         $this->db->execute();
 
@@ -46,7 +42,7 @@ class CategoryService implements CategoryServiceInterface {
 
     public function delete($id){
 
-        $sql = "DELETE FROM categories WHERE id = :id";
+        $sql = "DELETE FROM tags WHERE id = :id";
         $this->db->query($sql);
         $this->db->bind(":id", $id);
         $this->db->execute();
@@ -54,14 +50,24 @@ class CategoryService implements CategoryServiceInterface {
     }
 
     public function fetch($id){
-        $sql = "SELECT * FROM categories WHERE id = :id";
+        $sql = "SELECT * FROM tags WHERE id = :id";
         $this->db->query($sql);
         $this->db->bind(":id", $id);
         return $this->db->single();
     }
 
+    public function fetchByWiki($id){
+        $sql = "SELECT tags.name FROM tags 
+        JOIN tagsOfWiki ON tags.id = tagsOfWiki.tags_id 
+        JOIN wikis ON tagsOfWiki.wikis_id = wikis.id
+        WHERE wikis.id = :id";
+        $this->db->query($sql);
+        $this->db->bind(":id", $id);
+        return $this->db->resultSet();
+    }
+
     public function getColumns(){
-        $sql = "DESCRIBE `categories`";
+        $sql = "DESCRIBE `tags`";
         $this->db->query($sql);
         return $this->db->resultSet();
     }

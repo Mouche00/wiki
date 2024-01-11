@@ -1,12 +1,12 @@
 <?php
 
-class Categories extends Controller {
+class Tags extends Controller {
     private $model;
     private $service;
 
     public function __construct(){
-        $this->model = $this->model("Category");
-        $this->service = $this->service("CategoryService");
+        $this->model = $this->model("Tag");
+        $this->service = $this->service("TagService");
     }
 
     public function display(){
@@ -27,7 +27,6 @@ class Categories extends Controller {
             if (!$data['errorCheck']){
 
                 $this->model->setName($data['name']);
-                $this->model->setDescription($data['description']);
 
                 $this->service->insert($this->model);
             }
@@ -53,7 +52,6 @@ class Categories extends Controller {
 
                 $this->model->setId($id);
                 $this->model->setName($data['name']);
-                $this->model->setDescription($data['description']);
 
                 $this->service->edit($this->model);
             }
@@ -74,6 +72,12 @@ class Categories extends Controller {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $this->service->delete($id);
         }
+    }
+
+    public function getByWiki($id)
+    {
+        $data = $this->service->fetchByWiki($id);
+        echo json_encode($data);
     }
 
     public function getColumns()

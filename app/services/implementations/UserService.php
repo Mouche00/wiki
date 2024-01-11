@@ -8,6 +8,15 @@ class UserService implements UserServiceInterface {
         $this->db = Database::getInstance();
     }
 
+    public function read(){
+
+        $this->db->query('SELECT users.id, users.picture, users.fullname, users.email, roles.name as role_name FROM users 
+        JOIN rolesOfUser ON users.id = rolesOfUser.users_id 
+        JOIN roles ON rolesOfUser.roles_id = roles.name');
+        return $this->db->resultSet();
+
+    }
+
     public function insert(User $user){
 
         $fullname = $user->getFullname();
@@ -49,6 +58,12 @@ class UserService implements UserServiceInterface {
         $this->db->bind(":email", $email);
         return $this->db->single();
 
+    }
+
+    public function getColumns(){
+        $sql = "DESCRIBE `users`";
+        $this->db->query($sql);
+        return $this->db->resultSet();
     }
     
 }

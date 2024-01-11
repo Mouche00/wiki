@@ -1,10 +1,9 @@
 <?php
 
-class Category {
+class Tag {
 
     private $id;
     private $name;
-    private $description;
 
     public function __construct()
     {
@@ -24,13 +23,5 @@ class Category {
 
 	public function setName($name){
 		$this->name = $name;
-	}
-
-	public function getDescription(){
-		return $this->description;
-	}
-
-	public function setDescription($description){
-		$this->description = $description;
 	}
 }

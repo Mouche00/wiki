@@ -9,6 +9,12 @@ class Users extends Controller {
         $this->service = $this->service("UserService");
     }
 
+    public function display(){
+        $data = $this->service->read();
+
+        echo json_encode($data);
+    }
+
     public function register(){
 
         // User
@@ -87,5 +93,11 @@ class Users extends Controller {
     {
         session_unset();
         session_destroy();
+    }
+
+    public function getColumns()
+    {
+        $data = $this->service->getColumns();
+        echo json_encode($data);
     }
 }

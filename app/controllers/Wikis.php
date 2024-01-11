@@ -1,12 +1,12 @@
 <?php
 
-class Categories extends Controller {
+class Wikis extends Controller {
     private $model;
     private $service;
 
     public function __construct(){
-        $this->model = $this->model("Category");
-        $this->service = $this->service("CategoryService");
+        $this->model = $this->model("Wiki");
+        $this->service = $this->service("WikiService");
     }
 
     public function display(){
@@ -73,6 +73,13 @@ class Categories extends Controller {
     {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $this->service->delete($id);
+        }
+    }
+
+    public function archive($id)
+    {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $this->service->sofDelete($id);
         }
     }
 
