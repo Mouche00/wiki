@@ -144,4 +144,20 @@ class Wikis extends Controller {
         $data = $this->service->getColumns();
         echo json_encode($data);
     }
+
+    public function search($string)
+    {
+        $data = $this->service->search($string);
+        echo json_encode($data);
+    }
+
+    public function article($id)
+    {
+        $result = $this->service->fetch($id);
+        $data = [
+            'wiki' => $result,
+        ];
+        $this->view('wiki', $data);
+        // var_dump($data);
+    }
 }

@@ -81,4 +81,10 @@ class Categories extends Controller {
         $data = $this->service->getColumns();
         echo json_encode($data);
     }
+
+    public function search($string)
+    {
+        $data = $this->service->search($string);
+        echo json_encode($data);
+    }
 }

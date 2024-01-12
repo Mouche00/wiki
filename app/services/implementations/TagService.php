@@ -10,8 +10,17 @@ class TagService implements TagServiceInterface {
 
     public function read(){
 
-        $sql = "SELECT * FROM tags";
+        $sql = "SELECT * FROM tags ORDER BY id DESC";
         $this->db->query($sql);
+        return $this->db->resultSet();
+
+    }
+
+    public function search($string){
+
+        $sql = "SELECT * FROM tags WHERE name LIKE :string";
+        $this->db->query($sql);
+        $this->db->bind(":string", '%' . $string . '%');
         return $this->db->resultSet();
 
     }

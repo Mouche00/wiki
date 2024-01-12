@@ -13,8 +13,22 @@ class WikiService implements WikiServiceInterface {
         $sql = "SELECT wikis.id, title, content, dateModified, categories.name AS category_name, users.username AS author, users.picture AS user_picture FROM wikis 
         JOIN categories ON wikis.category_id = categories.id
         JOIN users ON users.id = wikis.user_id
-        WHERE archived = '0'";
+        WHERE archived = '0'
+        ORDER BY id DESC
+        LIMIT 6";
         $this->db->query($sql);
+        return $this->db->resultSet();
+
+    }
+
+    public function search($string){
+
+        $sql = "SELECT wikis.id, title, content, dateModified, categories.name AS category_name, users.username AS author, users.picture AS user_picture FROM wikis 
+        JOIN categories ON wikis.category_id = categories.id
+        JOIN users ON users.id = wikis.user_id 
+        WHERE title LIKE :string";
+        $this->db->query($sql);
+        $this->db->bind(":string", '%' . $string . '%');
         return $this->db->resultSet();
 
     }

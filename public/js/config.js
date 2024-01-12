@@ -5,7 +5,7 @@ let pageName = url[url.length - 1];
 
 
 function validateFields(input) {
-    if(input == '#tags[]'){
+    if(input != 'tags'){
         const field = document.querySelector(`#${input}`);
         let errorCheck = false;
 

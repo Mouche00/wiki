@@ -10,8 +10,17 @@ class CategoryService implements CategoryServiceInterface {
 
     public function read(){
 
-        $sql = "SELECT * FROM categories";
+        $sql = "SELECT * FROM categories ORDER BY id DESC";
         $this->db->query($sql);
+        return $this->db->resultSet();
+
+    }
+
+    public function search($string){
+
+        $sql = "SELECT * FROM categories WHERE name LIKE :string";
+        $this->db->query($sql);
+        $this->db->bind(":string", '%' . $string . '%');
         return $this->db->resultSet();
 
     }

@@ -33,7 +33,7 @@ $(document).ready(function(){
                 contentType: false,
                 success: function(response){
                     let data = JSON.parse(response);
-                    populate();
+                    // populate();
                     $('#overlay').addClass('hidden');
                     $('#form-wrapper').addClass('hidden');
                     $('textarea').val('');

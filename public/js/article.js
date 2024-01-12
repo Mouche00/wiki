@@ -1,0 +1,1 @@
+$('#navbar').removeClass('fixed');
