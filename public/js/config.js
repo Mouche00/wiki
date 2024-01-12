@@ -4,77 +4,74 @@ let controller = url[url.length - 2];
 let pageName = url[url.length - 1];
 
 
-const usersColumns = ['id', 'picture', 'fullname', 'email', 'role'];
-const wikisColumns = ['id', 'title', 'modification date', 'category', 'tags', 'actions'];
-
-
 function validateFields(input) {
+    if(input == '#tags[]'){
+        const field = document.querySelector(`#${input}`);
+        let errorCheck = false;
 
-    const field = document.querySelector(`#${input}`);
-    let errorCheck = false;
+        if (field.value.trim() == "") {
 
-    if (field.value.trim() == "") {
-
-        setStatus(field, `${field.previousElementSibling.innerText} cannot be blank`, "error");
-        errorCheck = true;
-
-    } else {
-
-        setStatus(field, null, "success");
-
-    }
-
-    if (field.type === "email") {
-
-    const regex = /^\S+@\S+\.\S+$/;
-
-        if(regex.test(field.value)) {
-            setStatus(field, null, "success");
-        } else {
-            setStatus(field, 'Please enter a valid email address', "error");
+            setStatus(field, `${field.previousElementSibling.innerText} cannot be blank`, "error");
             errorCheck = true;
-        }
-    }
 
-    if (field.type === "password") {
-
-        const regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
-
-        if(regex.test(field.value)) {
-            setStatus(field, null, "success");
         } else {
-            setStatus(field, 'Please enter a valid password', "error");
-            errorCheck = true;
+
+            setStatus(field, null, "success");
+
         }
 
-    }
+        if (field.type === "email") {
 
-    if (field.id === "fullname") {
+        const regex = /^\S+@\S+\.\S+$/;
 
-        const regex = /^[a-z ]+$/;
-
-        if(regex.test(field.value)) {
-            setStatus(field, null, "success");
-        } else {
-            setStatus(field, 'Please enter a valid name', "error");
-            errorCheck = true;
+            if(regex.test(field.value)) {
+                setStatus(field, null, "success");
+            } else {
+                setStatus(field, 'Please enter a valid email address', "error");
+                errorCheck = true;
+            }
         }
 
-    }
+        if (field.type === "password") {
 
-    if (field.id === "confirm-password") {
+            const regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
 
-        const confirmField = document.querySelector(`#password`);
-        
-        if(field.value != confirmField.value) {
-            setStatus(field, "Password does not match", "error");
-            errorCheck = true;
-        } else {
-            setStatus(field, null, "success");
+            if(regex.test(field.value)) {
+                setStatus(field, null, "success");
+            } else {
+                setStatus(field, 'Please enter a valid password', "error");
+                errorCheck = true;
+            }
+
         }
-    }
 
-    return errorCheck;
+        if (field.id === "fullname") {
+
+            const regex = /^[a-z ]+$/;
+
+            if(regex.test(field.value)) {
+                setStatus(field, null, "success");
+            } else {
+                setStatus(field, 'Please enter a valid name', "error");
+                errorCheck = true;
+            }
+
+        }
+
+        if (field.id === "confirm-password") {
+
+            const confirmField = document.querySelector(`#password`);
+            
+            if(field.value != confirmField.value) {
+                setStatus(field, "Password does not match", "error");
+                errorCheck = true;
+            } else {
+                setStatus(field, null, "success");
+            }
+        }
+
+        return errorCheck;
+    }
 
 }
 

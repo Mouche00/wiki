@@ -7,8 +7,10 @@ function validateInputs($array, $loginFlag = false){
     $service = new UserService();
 
     foreach($array as $key => $value){
-        $data = array_merge($data, array($key => trim($value)));
-        $errors = array_merge($errors, array($key . '_err' => ''));
+        if($key != 'tags'){
+            $data = array_merge($data, array($key => trim($value)));
+            $errors = array_merge($errors, array($key . '_err' => ''));
+        }
     }
 
     foreach($data as $key => $value){

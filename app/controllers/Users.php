@@ -72,9 +72,18 @@ class Users extends Controller {
 
                 $user = $this->service->fetchByEmail($data['email']);
                 $this->createSession($user);
+
+                if(isLogged() && isAdmin()){
+                    redirect('admin');
+                } else if(isLogged() && isAdmin()) {
+                    redirect('author/wikis');
+                }
+            } else {
+
+                echo json_encode($data);
+
             }
 
-            echo json_encode($data);
             
         }
         // var_dump($this->model);
@@ -86,6 +95,7 @@ class Users extends Controller {
     {
         $_SESSION['id'] = $user->id;
         $_SESSION['username'] = $user->username;
+        $_SESSION['picture'] = $user->picture;
         $_SESSION['role'] = $user->role_name;
     }
 
@@ -93,6 +103,7 @@ class Users extends Controller {
     {
         session_unset();
         session_destroy();
+        redirect('home');
     }
 
     public function getColumns()

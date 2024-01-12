@@ -8,7 +8,10 @@ class Author extends Controller
 
     public function wikis()
     {
-        
-        $this->view('author/index');
+        if(isLogged() && isAuthor()){
+            $this->view('author/index');
+        } else {
+            redirect('login');
+        }
     }
 }

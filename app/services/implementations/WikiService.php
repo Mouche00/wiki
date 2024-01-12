@@ -10,10 +10,41 @@ class WikiService implements WikiServiceInterface {
 
     public function read(){
 
-        $sql = "SELECT wikis.id, title, dateModified, categories.name AS category_name FROM wikis 
-        JOIN categories ON wikis.category_id = categories.id";
+        $sql = "SELECT wikis.id, title, dateModified, categories.name AS category_name, users.username AS author FROM wikis 
+        JOIN categories ON wikis.category_id = categories.id
+        JOIN users ON users.id = wikis.user_id
+        WHERE archived = '0'";
         $this->db->query($sql);
         return $this->db->resultSet();
+
+    }
+
+    public function readArchived(){
+
+        $sql = "SELECT wikis.id, title, dateModified, categories.name AS category_name, users.username AS author FROM wikis 
+        JOIN categories ON wikis.category_id = categories.id
+        JOIN users ON users.id = wikis.user_id
+        WHERE archived = '1'";
+        $this->db->query($sql);
+        return $this->db->resultSet();
+
+    }
+
+    public function wikisOfAuthor($id){
+
+        $sql = "SELECT wikis.id, title, dateModified, categories.name AS category_name FROM wikis 
+        JOIN categories ON wikis.category_id = categories.id
+        WHERE wikis.user_id = :id AND archived = '0'";
+        $this->db->query($sql);
+        $this->db->bind(':id', $id);
+        return $this->db->resultSet();
+
+    }
+
+    public function last(){
+
+        $this->db->query('SELECT * FROM wikis ORDER BY id DESC');
+        return $this->db->single();
 
     }
 
@@ -64,6 +95,15 @@ class WikiService implements WikiServiceInterface {
     public function softDelete($id){
 
         $sql = "UPDATE wikis SET archived = '1' WHERE id = :id";
+        $this->db->query($sql);
+        $this->db->bind(":id", $id);
+        $this->db->execute();
+
+    }
+
+    public function restore($id){
+
+        $sql = "UPDATE wikis SET archived = '0' WHERE id = :id";
         $this->db->query($sql);
         $this->db->bind(":id", $id);
         $this->db->execute();

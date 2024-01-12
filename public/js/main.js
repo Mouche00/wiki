@@ -1,10 +1,5 @@
 $(document).ready(function(){
 
-    drawPage();
-    drawTable();
-    drawForm();
-    populate();
-
     $('form input:file').change(function () {
         $('form p').text(this.files.length + " file selected");
     });
@@ -41,6 +36,7 @@ $(document).ready(function(){
                     populate();
                     $('#overlay').addClass('hidden');
                     $('#form-wrapper').addClass('hidden');
+                    $('textarea').val('');
                     $('input').val('');
                 }
     
@@ -55,16 +51,13 @@ $(document).ready(function(){
         $('#submit').text('SUBMIT');
         $('form').attr('action', URLROOT + '/' + pageName + '/add');
 
-        if(pageName == 'wikis'){
-            
-        }
-
     });
 
     $(document).on('click', '#close-form', function(){
         $('#overlay').addClass('hidden');
         $('#form-wrapper').addClass('hidden');
         $('input').val('');
+        $('textarea').val('');
     });
 
     $(document).on('click', '.edit-button', function(){
@@ -96,5 +89,9 @@ $(document).ready(function(){
                 populate();
             }
         });
+    });
+
+    $(document).on('click', '#logo-sidebar-button', function(){
+        $('#logo-sidebar').toggleClass('-translate-x-full');
     });
 })

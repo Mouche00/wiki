@@ -3,3 +3,7 @@
 * {
     font-family: 'Roboto Mono', monospace;
 }
+
+aside *:hover {
+    color: black !important;
+}

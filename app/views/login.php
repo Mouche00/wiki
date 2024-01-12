@@ -38,6 +38,5 @@
 </div>
 
 <script src="<?= URLROOT . '/js/config.js'?>"></script>
-<script src="<?= URLROOT . '/js/main.js'?>"></script>
 </body>
 </html>

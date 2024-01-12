@@ -8,25 +8,60 @@ class Admin extends Controller
 
     public function index()
     {
-        
-        $this->view('admin/index');
+        if(isLogged() && isAdmin()){
+            $this->view('admin/index');
+        } else {
+            redirect('login');
+        }
     }
 
     public function categories()
     {
         
-        $this->view('admin/index');
+        if(isLogged() && isAdmin()){
+            $this->view('admin/index');
+        } else {
+            redirect('login');
+        }
     }
 
     public function tags()
     {
         
-        $this->view('admin/index');
+        if(isLogged() && isAdmin()){
+            $this->view('admin/index');
+        } else {
+            redirect('login');
+        }
     }
 
     public function users()
     {
         
-        $this->view('admin/index');
+        if(isLogged() && isAdmin()){
+            $this->view('admin/users');
+        } else {
+            redirect('login');
+        }
+    }
+
+    public function wikis()
+    {
+        
+        if(isLogged() && isAdmin()){
+            $this->view('admin/wikis');
+        } else {
+            redirect('login');
+        }
+    }
+
+    public function archive()
+    {
+        
+        if(isLogged() && isAdmin()){
+            $this->view('admin/archive');
+        } else {
+            redirect('login');
+        }
     }
 }
