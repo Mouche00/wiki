@@ -17,4 +17,10 @@ class Pages extends Controller
         
         $this->view('login');
     }
+
+    public function index()
+    {
+        
+        $this->view('index');
+    }
 }

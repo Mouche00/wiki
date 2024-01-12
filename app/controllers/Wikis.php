@@ -9,6 +9,12 @@ class Wikis extends Controller {
         $this->service = $this->service("WikiService");
     }
 
+    public function displayTruncated(){
+        $data = $this->service->readTruncated();
+
+        echo json_encode($data);
+    }
+
     public function display(){
         $data = $this->service->read();
 

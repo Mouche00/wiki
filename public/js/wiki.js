@@ -47,13 +47,13 @@ function populate(){
             });
             button = $("<button>", { class: "delete-button", type: "button" });
             button.attr("data-id", `${e.id}`);
-            value = `<button class="bg-red-500 m-1 py-2 px-8 text-white rounded-md">DELETE</button>`;
+            value = `<button class="bg-[#3E3232] m-1 py-2 px-8 text-white rounded-md">DELETE</button>`;
             button.html(value);
             element.append(button);
             
             button = $("<button>", { class: "edit-button", type: "button" });
             button.attr("data-id", `${e.id}`);
-            value = `<button class="bg-blue-500 m-1 py-2 px-8 text-white rounded-md">EDIT</button>`;
+            value = `<button class="bg-[#3E3232] m-1 py-2 px-8 text-white rounded-md">EDIT</button>`;
             button.html(value);
             element.append(button);
 

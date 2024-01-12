@@ -3,14 +3,14 @@
 <body>
 
     <?php require_once APPROOT . "/views/inc/navbarAdmin.php"; ?>
-    <?php require_once APPROOT . "/views/inc/sidebar.php"; ?>
+    <?php require_once APPROOT . "/views/inc/sidebarAuthor.php"; ?>
 
     <div class="p-4 sm:ml-64">
         <div id="content-wrapper" class="p-4 border-2 border-gray-200 border-dashed rounded-lg dark:border-gray-700 mt-14">
             <div class = 'relative overflow-x-auto sm:rounded-lg' id = 'subcontent-wrapper'>
                 <div class="flex items-center justify-between flex-column md:flex-row flex-wrap space-y-4 md:space-y-0 py-4 bg-white dark:bg-gray-900">
                     <div>
-                        <button id="show-form" class="inline-flex items-center text-gray-500 bg-green-500 text-white border border-green-500 focus:outline-none hover:bg-white hover:border-green-500 hover:text-green-500 focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-sm px-3 py-1.5 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700" type="button">
+                        <button id="show-form" class="inline-flex items-center text-gray-500 bg-[#3E3232] text-white border border-green-500 focus:outline-none hover:bg-white hover:border-green-500 hover:text-green-500 focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-sm px-3 py-1.5 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700" type="button">
                             Add wikis
                         </button>
                     </div>

@@ -1,6 +1,7 @@
 <?php
 
 interface WikiServiceInterface {
+    public function readTruncated();
     public function read();
     public function readArchived();
     public function wikisOfAuthor($id);

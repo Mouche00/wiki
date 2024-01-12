@@ -28,6 +28,9 @@
                                 Author
                             </th>
                             <th scope="col" class="px-6 py-3 rounded-sm">
+                                Picture
+                            </th>
+                            <th scope="col" class="px-6 py-3 rounded-sm">
                                 Tags
                             </th>
                             <th scope="col" class="px-6 py-3 rounded-sm">

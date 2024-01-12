@@ -8,9 +8,20 @@ class WikiService implements WikiServiceInterface {
         $this->db = Database::getInstance();
     }
 
+    public function readTruncated(){
+
+        $sql = "SELECT wikis.id, title, content, dateModified, categories.name AS category_name, users.username AS author, users.picture AS user_picture FROM wikis 
+        JOIN categories ON wikis.category_id = categories.id
+        JOIN users ON users.id = wikis.user_id
+        WHERE archived = '0'";
+        $this->db->query($sql);
+        return $this->db->resultSet();
+
+    }
+
     public function read(){
 
-        $sql = "SELECT wikis.id, title, dateModified, categories.name AS category_name, users.username AS author FROM wikis 
+        $sql = "SELECT wikis.id, title, dateModified, categories.name AS category_name, users.username AS author, users.picture AS user_picture FROM wikis 
         JOIN categories ON wikis.category_id = categories.id
         JOIN users ON users.id = wikis.user_id
         WHERE archived = '0'";
